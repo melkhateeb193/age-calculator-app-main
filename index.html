@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Age calculator app</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="p-4 ">
+  <div class="d-flex   w-75  ">
+    <div class="me-2 ">
+      <label id="label"  for="DayInput"> Day</label> 
+      <input id="DayInput" class="form-control " type="text" placeholder="DD" required>
+      <p id="PForField" class="d-none" >This field is required</p>
+      <p id="PvalidDay" class="d-none">must be a valid Day</p>
+    </div>
+    <div class="me-2 ">
+      <label id="label"  for="monthInput"> MONTH</label> 
+      <input id="monthInput" class="form-control " type="text" placeholder="MM" required>
+      <p  id="PForField" class="d-none" >This field is required</p>
+      <p id="PvalidMonth" class="d-none">must be a valid Month</p>
+
+    </div>
+    <div class="me-2 ">
+      <label id="label"  for="YearInput"> YEARS</label> 
+    <input id="YearInput" class="form-control " type="text" placeholder="YYYY" required>
+    <p id="PForField" class="d-none" >This field is required</p>
+    <p id="PvalidYear" class="d-none">must be a valid Year</p>
+    
+  </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center  ">
+  <div class="line "></div>
+  <div id="Button" class="Button"></div>
+</div>
+  <div class="AgeResult ">
+    <p class="Phargrph" > <span class="DigitalLock" id="DigitalLockYear">--</span> years</p>
+    <p class="Phargrph"> <span  class="DigitalLock" id="DigitalLockMonth">--</span> months</p>
+    <p class="Phargrph"> <span   class="DigitalLock" id="DigitalLockDay">--</span> days</p>
+  </div>
+</main>
+<script src="script.js"></script>
+  <div class="attribution mt-2  ">
+    Challenge by <a href="https://github.com/melkhateeb193" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">MostafaElkhateeb</a>.
+  </div>
+</body>
+</html>

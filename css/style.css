@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    --Purple: hsl(259, 100%, 65%);
+    --Light-Red: hsl(0, 100%, 67%);
+    --White: hsl(0, 0%, 100%);
+    --Off-White: hsl(0, 0%, 94%);
+    --Light-grey: hsl(0, 0%, 86%);
+    --Off-black: hsl(0, 0%, 8%);
+    --Smokey-grey: hsl(0, 1%, 44%);
+}
+
+body {
+    height: 100vh;
+    font-size: 2vw; /* Adjust font size relative to viewport width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--Light-grey);
+}
+
+main {
+    border-radius: 4vw; /* Adjust border radius relative to viewport width */
+    width: 70vw; /* Adjust width relative to viewport width */
+    max-width: 600px; /* Set a maximum width */
+    background-color: var(--White);
+}
+
+.Button {
+    border: 1px solid var(--Purple);
+    border-radius: 50%;
+    width: 5vw; /* Adjust width relative to viewport width */
+    height: 5vw; /* Adjust height relative to viewport width */
+    background-color: var(--Purple);
+    background-image: url(/assets/images/icon-arrow.svg);
+    background-position: center;
+    background-size: 50%;
+    padding: 1vw !important; /* Adjust padding relative to viewport width */
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.line {
+    border: 1px solid var(--Off-White);
+    width: 100%;
+}
+
+label {
+    font-size: 1vw; /* Adjust font size relative to viewport width */
+}
+
+input::placeholder {
+    color: var(--Off-White);
+}
+
+.Phargrph {
+    font-weight: 800;
+    font-size: 6vw; /* Adjust font size relative to viewport width */
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.DigitalLock {
+    color: var(--Purple);
+}
+
+#PForField, #PvalidDay, #PvalidMonth, #PvalidYear {
+    color: red;
+    font-size: 0.8vw; /* Adjust font size relative to viewport width */
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    main {
+        width: 90vw;
+    }
+
+    .Button {
+        width: 15vw;
+        height: 15vw;
+    }
+
+    .Phargrph {
+        font-size: 9vw;
+    }
+
+    #PForField, #PvalidDay, #PvalidMonth, #PvalidYear {
+        font-size: 2vw;
+    }
+}
+
+.attribution {
+    font-size: 1vw; /* Adjust font size relative to viewport width */
+    text-align: center;
+}
+
+.attribution a {
+    color: hsl(228, 45%, 44%);
+}

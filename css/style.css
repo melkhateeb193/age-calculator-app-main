@@ -22,7 +22,7 @@ body {
 }
 
 main {
-    border-radius: 4vw; /* Adjust border radius relative to viewport width */
+    border-radius: 2vw 2vw 15vw 2vw; /* Adjust border radius relative to viewport width */
     width: 70vw; /* Adjust width relative to viewport width */
     max-width: 600px; /* Set a maximum width */
     background-color: var(--White);

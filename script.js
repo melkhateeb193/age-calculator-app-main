@@ -1,81 +1,96 @@
-const dayInput = document.getElementById('DayInput');
-const monthInput = document.getElementById('monthInput');
-const yearInput = document.getElementById('YearInput');
-const spanDay = document.getElementById('DigitalLockDay');
-const spanMonth = document.getElementById('DigitalLockMonth');
-const spanYear = document.getElementById('DigitalLockYear');
-const button = document.getElementById('Button');
-const labels = document.querySelectorAll('label');
-const pFieldElements = document.querySelectorAll('.pForField');
-const pValidDay = document.getElementById('PvalidDay');
-const pValidMonth = document.getElementById('PvalidMonth');
-const pValidYear = document.getElementById('PvalidYear');
+"use strict";
 
-const currentDate = new Date();
+document.addEventListener("DOMContentLoaded", function () {
+  // Selectors
+  const dayInput = document.getElementById('DayInput');
+  const monthInput = document.getElementById('monthInput');
+  const yearInput = document.getElementById('YearInput');
+  const spanDay = document.getElementById('DigitalLockDay');
+  const spanMonth = document.getElementById('DigitalLockMonth');
+  const spanYear = document.getElementById('DigitalLockYear');
+  const button = document.getElementById('Button');
+  const labels = document.querySelectorAll('label');
+  const errorDay = document.getElementById('PForFieldDay');
+  const errorMonth = document.getElementById('PForFieldMonth');
+  const errorYear = document.getElementById('PForFieldYear');
+  const inputs = [dayInput, monthInput, yearInput];
+  const errMessages = [errorDay, errorMonth, errorYear];
 
-console.log(currentDate.getMonth() + 1);
+  // Functions & Events
+  button.addEventListener("click", function (e) {
+    e.preventDefault();
+    validateInputs();
+  });
 
-button.addEventListener('click', () => {
-  const dayInputValue = parseInt(dayInput.value);
-  const monthInputValue = parseInt(monthInput.value);
-  const yearInputValue = parseInt(yearInput.value);
+  function validateInputs() {
+    const valueRequired = "This field is required";
+    const validDayTxt = "Must be a valid day";
+    const validMonthTxt = "Must be a valid month";
+    const validYearTxt = "Must be in the past";
 
-  if (isNaN(dayInputValue) || isNaN(monthInputValue) || isNaN(yearInputValue)) {
-    showErrorStyles();
-  } else {
-    calculateDate(dayInputValue, monthInputValue, yearInputValue);
+    function showError(element, message) {
+      element.style.opacity = 1;
+      element.innerHTML = message;
+      element.classList.remove('d-none');
+      labels.forEach((label) => (label.style.color = "hsl(0, 100%, 67%)"));
+      inputs.forEach(
+        (input) => (input.style.borderColor = "hsl(0, 100%, 67%)")
+      );
+    }
+
+    function resetErrors() {
+      errMessages.forEach((err) => {
+        if (err) {  // Check if the element exists
+          err.style.opacity = 0;
+          err.innerHTML = "";
+        }
+      });
+      labels.forEach((label) => (label.style.color = ""));
+      inputs.forEach((input) => (input.style.borderColor = ""));
+    }
+
+    const day = parseInt(dayInput.value.trim());
+    const month = parseInt(monthInput.value.trim());
+    const year = parseInt(yearInput.value.trim());
+
+    resetErrors();
+
+    if (!day || !month || !year || isNaN(day) || isNaN(month) || isNaN(year)) {
+      if (!day) showError(errorDay, valueRequired);
+      if (!month) showError(errorMonth, valueRequired);
+      if (!year) showError(errorYear, valueRequired);
+
+      return;
+    }
+
+    if (!(1 <= day && day <= 31)) {
+      showError(errorDay, validDayTxt);
+    } else if (!(1 <= month && month <= 12)) {
+      showError(errorMonth, validMonthTxt);
+    } else if (!(1900 <= year && year <= new Date().getFullYear())) {
+      showError(errorYear, validYearTxt);
+    } else {
+      resetErrors();
+
+      const currentDate = new Date();
+      const birthDate = new Date(year, month - 1, day);
+      const timeDifference = currentDate - birthDate;
+      const seconds = timeDifference / 1000;
+      let days = Math.floor(
+        (seconds % (30.44 * 24 * 60 * 60)) / (24 * 60 * 60)
+      );
+      let months = Math.floor(
+        (seconds % (365.25 * 24 * 60 * 60)) / (30.44 * 24 * 60 * 60)
+      );
+      let years = Math.floor(seconds / (365.25 * 24 * 60 * 60));
+
+      if (months === 0) {
+        months++;
+      }
+
+      spanYear.textContent = years;
+      spanMonth.textContent = months;
+      spanDay.textContent = days + 1;
+    }
   }
-
-  checkAndShowErrorMessage(dayInputValue > 31, pValidDay);
-  checkAndShowErrorMessage(monthInputValue > 12, pValidMonth);
-  checkAndShowErrorMessage(yearInputValue > currentDate.getFullYear(), pValidYear);
-
-  setTimeout(() => {
-    resetStyles();
-  }, 1000);
 });
-
-function resetStyles() {
-  dayInput.style.borderColor = '';
-  monthInput.style.borderColor = '';
-  yearInput.style.borderColor = '';
-  labels.forEach(label => (label.style.color = ''));
-  pFieldElements.forEach(pField => pField.classList.replace('d-block', 'd-none'));
-}
-
-function showErrorStyles() {
-  dayInput.style.borderColor = 'red';
-  monthInput.style.borderColor = 'red';
-  yearInput.style.borderColor = 'red';
-  labels.forEach(label => (label.style.color = 'red'));
-  pFieldElements.forEach(pField => pField.classList.replace('d-none', 'd-block'));
-}
-
-function checkAndShowErrorMessage(condition, element) {
-  if (condition) {
-    element.classList.replace('d-none', 'd-block');
-  }
-}
-
-function calculateDate(dayInputValue, monthInputValue, yearInputValue) {
-  const birthDate = new Date(yearInputValue, monthInputValue - 1, dayInputValue);
-  const ageDate = new Date(currentDate - birthDate);
-
-  let years = currentDate.getFullYear() - birthDate.getFullYear();
-  let months = currentDate.getMonth() - birthDate.getMonth();
-  const days = currentDate.getDate() - birthDate.getDate();
-
-  if (days < 0) {
-    const lastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-    days += lastMonth.getDate();
-    months -= 1;
-  }
-  if (months < 0) {
-    months += 12;
-    years == 1;
-  }
-
-  spanDay.innerHTML = days;
-  spanMonth.innerHTML = months;
-  spanYear.innerHTML = years;
-}

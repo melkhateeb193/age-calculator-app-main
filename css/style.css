@@ -66,7 +66,7 @@ input::placeholder {
     color: var(--Purple);
 }
 
-#PForField, #PvalidDay, #PvalidMonth, #PvalidYear {
+#PForField, #PForFieldDay, #PForFieldMonth, #PForFieldYear {
     color: red;
     font-size: 0.6vw; /* Adjust font size relative to viewport width */
 }
